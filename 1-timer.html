@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Таймер зворотного відліку</title>
+    <title>Таймер</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/confirmDate/confirmDate.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -17,64 +17,64 @@
             min-height: 100vh;
             margin: 0;
             padding: 20px;
-            /* Cool Gradient Background */
-            background: linear-gradient(135deg, #6dd5ed, #2193b0); /* Blue-ish gradient */
-            color: #fff; /* White text for better contrast */
-            overflow: hidden; /* Prevent scrollbar if content slightly overflows */
+          
+            background: linear-gradient(135deg, #6dd5ed, #2193b0); 
+            color: #fff; 
+            overflow: hidden; 
         }
 
         .controls {
             display: flex;
-            gap: 15px; /* Increased gap */
-            margin-bottom: 40px; /* More space below controls */
+            gap: 15px;
+            margin-bottom: 40px; 
             align-items: center;
-            background-color: rgba(255, 255, 255, 0.15); /* Slightly transparent background */
+            background-color: rgba(255, 255, 255, 0.15);
             padding: 20px 30px;
-            border-radius: 12px; /* More rounded corners */
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
-            backdrop-filter: blur(10px); /* Frosted glass effect */
-            border: 1px solid rgba(255, 255, 255, 0.3); /* Light border */
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); 
+            backdrop-filter: blur(10px); 
+            border: 1px solid rgba(255, 255, 255, 0.3); 
         }
 
         #datetime-picker {
-            padding: 12px 18px; /* More padding */
-            border: 1px solid rgba(255, 255, 255, 0.5); /* Lighter border for light theme */
-            border-radius: 8px; /* Slightly more rounded */
-            font-size: 17px; /* Slightly larger font */
+            padding: 12px 18px; 
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 8px; 
+            font-size: 17px;
             min-width: 220px;
-            background-color: rgba(255, 255, 255, 0.9); /* Opaque white background */
-            color: #333; /* Dark text */
-            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1); /* Inner shadow */
+            background-color: rgba(255, 255, 255, 0.9); 
+            color: #333; 
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         #datetime-picker:focus {
             outline: none;
-            border-color: #00bcd4; /* Accent color on focus */
-            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1), 0 0 0 3px rgba(0, 188, 212, 0.2); /* Focus ring */
+            border-color: #00bcd4;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1), 0 0 0 3px rgba(0, 188, 212, 0.2);
         }
 
         button[data-start] {
-            padding: 12px 25px; /* More padding */
-            background-color: #00bcd4; /* Teal-ish accent color */
+            padding: 12px 25px; 
+            background-color: #00bcd4; 
             color: white;
             border: none;
-            border-radius: 8px; /* More rounded */
+            border-radius: 8px; 
             cursor: pointer;
-            font-size: 17px; /* Slightly larger font */
-            font-weight: 600; /* Bolder text */
+            font-size: 17px;
+            font-weight: 600;
             transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 188, 212, 0.3); /* Subtle shadow */
+            box-shadow: 0 4px 15px rgba(0, 188, 212, 0.3); 
         }
 
         button[data-start]:hover:not(:disabled) {
-            background-color: #0097a7; /* Darker teal on hover */
-            transform: translateY(-2px); /* Slight lift effect */
+            background-color: #0097a7;
+            transform: translateY(-2px); 
             box-shadow: 0 6px 20px rgba(0, 188, 212, 0.4);
         }
 
         button[data-start]:disabled {
-            background-color: rgba(204, 204, 204, 0.7); /* Lighter disabled state */
+            background-color: rgba(204, 204, 204, 0.7);
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
@@ -82,43 +82,43 @@
 
         .timer {
             display: flex;
-            gap: 25px; /* Increased gap between fields */
-            background-color: rgba(255, 255, 255, 0.95); /* Nearly opaque white background */
-            padding: 40px 50px; /* More padding */
-            border-radius: 15px; /* Even more rounded corners */
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25); /* Stronger, softer shadow */
-            color: #333; /* Dark text for values */
-            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            gap: 25px;
+            background-color: rgba(255, 255, 255, 0.95); 
+            padding: 40px 50px; 
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25); 
+            color: #333;
+            flex-wrap: wrap;
             justify-content: center;
         }
 
         .field {
             text-align: center;
-            min-width: 90px; /* Ensure fields have a minimum width */
+            min-width: 90px;
             padding: 10px 0;
         }
 
         .value {
-            font-size: 4em; /* Larger values */
-            font-weight: 700; /* Bolder numbers */
-            color: #2193b0; /* Use a color from the gradient for numbers */
+            font-size: 4em;
+            font-weight: 700; 
+            color: #2193b0;
             display: block;
             margin-bottom: 5px;
-            line-height: 1; /* Tighter line height */
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05); /* Subtle text shadow */
+            line-height: 1;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
         }
 
         .label {
-            font-size: 1.1em; /* Slightly larger label */
+            font-size: 1.1em;
             text-transform: uppercase;
             color: #666;
             font-weight: 500;
-            letter-spacing: 0.5px; /* More spacing */
+            letter-spacing: 0.5px; 
         }
 
-        /* Adjustments for Flatpickr confirmDate plugin button */
+
         .flatpickr-calendar .flatpickr-confirm {
-            background-color: #00bcd4; /* Match button color */
+            background-color: #00bcd4; 
             color: white;
             border-radius: 5px;
             font-weight: 600;
